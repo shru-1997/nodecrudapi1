@@ -18,15 +18,25 @@ app.use(bodyParser.urlencoded({extended:true}))
 const connectionString ="mongodb+srv://shruthireddy:shruthi1709@cluster0.6lloq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 // Connecting the database
-MongoClient.connect(connectionString,(err,client)=>{
-    if(err) return console.error(err)
-    console.log('connected to database')
-})
+MongoClient.connect(connectionString,{useUnifiedTopology:true})
+ .then(client => {
+     console.log('connected to database server')
+     const db= client.db('star-wars-quotes')
+     const quotesCollection = db.collection('quotes')
+     
+     // Two parameters first one route, second one is function what you want to execute
+        app.post('/quotes', (req,res) => {
+            quotesCollection.insertOne(req.body)
+            .then(result=>{
+                console.log(result)
+            })
+            .catch(error=>console.error(error))
+        })
 
-// Two parameters first one route, second one is function what you want to execute
-app.post('/quotes', (req,res) => {
-    res.send(req.body)
-})
+}).catch(console.error)
+
+
+
 
 // Creating the server
 const PORT = 5000
