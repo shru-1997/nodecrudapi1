@@ -52,8 +52,21 @@ MongoClient.connect(connectionString,{useUnifiedTopology:true})
 
         })
 
+        // //3.Updating data
+        // app.put('/updatequote',(req,res)=>{
+        //     quotesCollection.findOneAndUpdate()
+        //     // Waiting for the promise to send us the result back
+        //     .then(result=>{
+        //         res.send(result)
+        //       })
+        //     // Waiting for the promise to send us the error back
+        //     .catch(error=>console.error(error))
+        // })
+
+
 }).catch(console.error) // MongoDB Atlas Cluster/Server Connection Error
 
+    
 
 
 
